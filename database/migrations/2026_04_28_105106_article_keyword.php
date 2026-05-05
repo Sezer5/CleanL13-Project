@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('article_keyword', function (Blueprint $table) {
             $table->id();
-            $table->integer('article_id');
-            $table->integer('keyword_id');
-            $table->timestamps();
+        // integer yerine foreignId kullanmak ve constrained eklemek iyidir
+        $table->foreignId('article_id')->constrained()->onDelete('cascade');
+        $table->foreignId('keyword_id')->constrained()->onDelete('cascade');
+        $table->timestamps();
         });
     }
 

@@ -23,7 +23,7 @@ class AddArticleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|max:255|unique:article',
+            'title' => 'required|max:255|unique:articles',
             'keyword_id' => 'required',
             'desc' => 'required|max:5000',
             'thumbnail' => 'required|image|mimes:jpeg,jpg,png,webp|max:2048'

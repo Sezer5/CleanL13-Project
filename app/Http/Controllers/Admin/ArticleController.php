@@ -40,6 +40,11 @@ class ArticleController extends Controller
             $data = $request->validated();
             $data['thumbnail'] = $this->saveImage($request->file('thumbnail'));
             $article = Article::create($data);
+
+            if (!$article) {
+        dd("Model oluşturulamadı! Veri içeriği:", $data);
+    }
+
             $article->keywords()->sync($request->keyword_id);
             return redirect()->route('admin.article.index')->with([
                 'success' => 'Article created successfully'
