@@ -24,6 +24,7 @@
                                 <tr>
                                     <th>*</th>
                                     <th>Title</th>
+                                    <th>Image</th>
                                     <th>#</th>
                                 </tr>
                             </thead>
@@ -32,6 +33,7 @@
                                     <tr>
                                         <td>{{$key+=1}}</td>
                                         <td>{{$article->title}}</td>
+                                        <td><img src="{{asset($article->thumbnail)}}" width="30"></td>
                                         <td>
                                             <a href="{{route('admin.article.edit',$article->id)}}">
                                                 <button class="btn btn-warning btn-sm">
