@@ -9,6 +9,6 @@ class Article extends Model
     protected $fillable = ['title','desc','thumbnail'];
 
     public function keywords(){
-        $this->belongsToMany(Keyword::class);
+        $this->belongsToMany(Keyword::class,'article_keyword','article_id','keyword_id');
     }
 }

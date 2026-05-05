@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AddArticleRequest;
 use App\Models\Article;
 use App\Models\Keyword;
 use Illuminate\Http\Request;
@@ -33,9 +34,17 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AddArticleRequest $request)
     {
-        //
+        if($request->validated()){
+            $data = $request->validated();
+            $data['thumbnail'] = $this->saveImage($request->file('thumbnail'));
+            $article = Article::create($data);
+            $article->keywords()->sync($request->keyword_id);
+            return redirect()->route('admin.article.index')->with([
+                'success' => 'Article created successfully'
+            ]);
+        }
     }
 
     /**
@@ -68,5 +77,11 @@ class ArticleController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function saveImage($file){
+        $image_path=time().'_'.$file->getClientOriginalName();
+        $file->storeAs('images/articles',$image_path,'public');
+        return 'storage/images/articles/'.$image_path;
     }
 }

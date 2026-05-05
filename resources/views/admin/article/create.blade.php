@@ -12,7 +12,7 @@
         <div class="card p-4 shadow-sm">
             <div class="row">
                 <div class="col-md-6 border p-4 rounded bg-light">
-                    <form action="{{route('admin.keyword.store')}}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('admin.article.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         
                         <div class="mb-3">
@@ -29,6 +29,28 @@
                                 <div class="invalid-feedback">{{$message}}</div>
                             @enderror
                         </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Keywords*</label>
+                            <select
+                                multiple
+                                class="form-control form-select-sm @error('keyword_id') is-invalid @enderror"
+                                name="keyword_id[]"
+                                id="keyword_id"
+                            >
+                                <option selected>Select one</option>
+                                @foreach ($keywords as $keyword)
+                                    <option value="{{$keyword->id}}" @if (collect(old('keyword_id'))->contains($keyword->id)) selected @endif>{{$keyword->name}}</option>
+                                @endforeach
+                            </select>
+                            @error('keyword_id')
+                                            <span class="invalid-feedback">
+                                                <strong>
+                                                    {{$message}}
+                                                </strong>
+                                            </span>
+                                        @enderror
+                        </div>
+                        
 
                         <div class="mb-3">
                             <label for="desc" class="form-label fw-bold">Description*</label>
@@ -40,7 +62,7 @@
 
                         <div class="mb-3">
                             <label for="image-input" class="form-label fw-bold">Choose Thumbnail:</label>
-                            <input type="file" name="thumbnail" id="image-input" class="form-control @error('image') is-invalid @enderror" accept="image/*">
+                            <input type="file" name="thumbnail" id="image-input" class="form-control @error('thumbnail') is-invalid @enderror" accept="image/*">
                             @error('image')
                                 <div class="invalid-feedback">{{$message}}</div>
                             @enderror
