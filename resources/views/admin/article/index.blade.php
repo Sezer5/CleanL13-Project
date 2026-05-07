@@ -12,7 +12,7 @@
                             <thead>
                                 <tr>
                                     <tr>
-                                        <th colspan="4">
+                                        <th colspan="5">
                                             <a href="{{route('admin.article.create')}}">
                                                 <button class="btn btn-success">
                                                     <i class="bi bi-plus"></i> Add Article
@@ -24,6 +24,7 @@
                                 <tr>
                                     <th>*</th>
                                     <th>Title</th>
+                                    <th>Keywords</th>
                                     <th>Image</th>
                                     <th>#</th>
                                 </tr>
@@ -33,6 +34,11 @@
                                     <tr>
                                         <td>{{$key+=1}}</td>
                                         <td>{{$article->title}}</td>
+                                        <td>
+                                            @foreach ($article->keywords as $keyword)
+                                                <span class="badge text-bg-secondary">{{$keyword->name}}</span>
+                                            @endforeach
+                                        </td>
                                         <td><img src="{{asset($article->thumbnail)}}" width="30"></td>
                                         <td>
                                             <a href="{{route('admin.article.edit',$article->id)}}">
